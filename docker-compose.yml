@@ -11,6 +11,10 @@ services:
             - .:/code
         ports:
             - 8000:8000
+        environment:
+            - SECRET_KEY=just_for_training_purposes
+            - DEBUG=True
+            - HEROKU_URL=url
         depends_on:
             - db
 volumes:
