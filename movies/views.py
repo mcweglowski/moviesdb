@@ -6,5 +6,5 @@ def home(request):
                                 <title>Movies DB</title>
                             </head>
                             <body>
-                                <h1>Movies Site!</h1>
+                                <form id="testForm">Movies Site!</form>
                             </body>''')

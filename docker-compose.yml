@@ -17,5 +17,12 @@ services:
             - HEROKU_URL=url
         depends_on:
             - db
+    chrome:
+        image: selenium/standalone-chrome-debug:3.141.59-yttrium
+        volumes:
+            - /dev/shm:/dev/shm
+        ports:
+            - "4444:4444"
+       # network_mode: "host"
 volumes:
     postgres_data:
