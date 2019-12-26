@@ -26,7 +26,8 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ['DEBUG']
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', os.environ['HEROKU_URL']]
+# ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', os.environ['HEROKU_URL'], '172.18.0.3', '172.18.0.4']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

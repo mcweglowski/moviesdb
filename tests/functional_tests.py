@@ -6,7 +6,7 @@ import unittest
 class NewVisitorTest(unittest.TestCase):
 
     def setUp(self):
-        selenium_url = 'http://localhost:4444/wd/hub'
+        selenium_url = "http://chrome:4444/wd/hub"
         capabilities = DesiredCapabilities.CHROME.copy()
 
         self.browser = webdriver.Remote(desired_capabilities=capabilities,
@@ -18,18 +18,18 @@ class NewVisitorTest(unittest.TestCase):
         self.browser.quit()
 
     def test_can_webpage_start_smoke_pass(self):
-        self.browser.get('http://localhost:8000')
+        self.browser.get("http://web:8000/")
         self.assertIn('Movies DB', self.browser.title)
 
     def test_can_webpage_start_smoke_fail(self):
-        self.browser.get('http://localhost:8000')
+        self.browser.get("http://web:8000/")
         self.assertIn('Movies DB2', self.browser.title)
 
     def test_dummy_pass(self):
         self.assertEqual(1, 1)
 
     def test_locate_by_id(self):
-        self.browser.get('http://localhost:8000')
+        self.browser.get("http://web:8000/")
         test_form = self.browser.find_element_by_id('testForm')
         self.assertIn('Movies Site!', test_form.text)
 
