@@ -21,3 +21,10 @@ urlpatterns = [
     path('movies/', include('movies.urls')),
     path('', include('movies.urls')),
 ]
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('movies/', include('movies.urls')),
+#     path('', include('snippets.urls')),
+#     path('snippets/', include('snippets.urls')),
+# ]
