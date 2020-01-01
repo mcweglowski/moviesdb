@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from snippets.models import Snippet
@@ -19,9 +19,10 @@ def snippet_list(request):
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
 
+
 @csrf_exempt
 def snippet_detail(request, pk):
-    try
+    try:
         snippet = Snippet.objects.get(pk=pk)
     except Snippet.DoesNotExist:
         return HttpResponse(status=404)
