@@ -1,10 +1,12 @@
-from django.test import TestCase
+from django.test import TestCase, Client
+import io
 import json
+from rest_framework.parsers import JSONParser
 from snippets.models import Snippet
 
 
 # Create your tests here.
-class SnippetListViewTest(TestCase):
+class SnippetListViewGETTest(TestCase):
     number_of_snippets = 4
 
     @classmethod
@@ -20,4 +22,21 @@ class SnippetListViewTest(TestCase):
         response = self.client.get('/snippets/list', follow=True)
         self.assertEqual(response.status_code, 200)
         json_content = json.loads(response.content)
-        self.assertTrue(len(json_content) == self.number_of_snippets)
+        self.assertEqual(len(json_content), self.number_of_snippets)
+
+
+class SnippetListViewPOSTTest(TestCase):
+    def test_view_creates_2_elements_from_request(self):
+        # content = b'{"id": 2, "title": "", "code": "print(\\"hello, world\\")\\n", "linenos": false, "language": "python", "style": "friendly"}'
+        content = b'{title": "", "code": "print(\\"hello, world\\")\\n", "linenos": false, "language": "python", "style": "friendly"}'
+        stream = io.BytesIO(content)
+        data = JSONParser().parse(stream)
+
+        response = self.client.post('/snippets/list/', data=data, follow=True)
+        self.assertEqual(response.status_code, 201)
+
+        json_content = json.loads(response.content)
+        self.assertEqual(len(json_content), 2)
+
+        persisted_count = Snippet.objects.count()
+        self.assertEqual(persisted_count, 1)
