@@ -8,3 +8,11 @@ def home(request):
                             <body>
                                 <form id="testForm">Movies Site!</form>
                             </body>''')
+
+
+def movies_get(request):
+    pass
+
+
+def movies_post(request):
+    pass
