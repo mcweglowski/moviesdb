@@ -28,3 +28,7 @@ jobs:
       run: |
         pip install pytest
         pytest
+      env:
+        SECRET_KEY: its_here_only_for_simplicity
+        HEROKU_URL: fake_value
+        DEBUG: False
