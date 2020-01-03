@@ -1,12 +1,9 @@
-from django.test import TestCase, Client
-import io
+from django.test import TestCase
 import json
-from rest_framework.parsers import JSONParser
 from snippets.models import Snippet
 
 
-# Create your tests here.
-class SnippetListViewGETTest(TestCase):
+class SnippetListViewTest(TestCase):
     number_of_snippets = 4
 
     @classmethod
@@ -15,11 +12,11 @@ class SnippetListViewGETTest(TestCase):
             Snippet.objects.create(code='Snippet: #{snippet_id}')
 
     def test_view_url_exists_at_desired_location(self):
-        response = self.client.get('/snippets/list', follow=True)
+        response = self.client.get('/snippets', follow=True)
         self.assertEqual(response.status_code, 200)
 
     def test_list_contains_4_elements(self):
-        response = self.client.get('/snippets/list', follow=True)
+        response = self.client.get('/snippets', follow=True)
         self.assertEqual(response.status_code, 200)
         json_content = json.loads(response.content)
         self.assertEqual(len(json_content), self.number_of_snippets)
