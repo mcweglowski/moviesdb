@@ -32,3 +32,4 @@ jobs:
         SECRET_KEY: its_here_only_for_simplicity
         HEROKU_URL: fake_value
         DEBUG: False
+        # DJANGO_SETTINGS_MODULE: moviesdb.settings
