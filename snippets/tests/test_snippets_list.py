@@ -24,12 +24,20 @@ class SnippetListViewTest(TestCase):
 
 # class SnippetListViewPOSTTest(TestCase):
 #     def test_view_creates_2_elements_from_request(self):
-#         # content = b'{"id": 2, "title": "", "code": "print(\\"hello, world\\")\\n", "linenos": false, "language": "python", "style": "friendly"}'
-#         content = b'{title": "", "code": "print(\\"hello, world\\")\\n", "linenos": false, "language": "python", "style": "friendly"}'
+#         # content = b'{"id": 2, "title": "",
+#                       "code": "print(\\"hello, world\\")\\n",
+#                       "linenos": false,
+#                       "language": "python",
+#                       "style": "friendly"}'
+#         content = b'{title": "", "code": "print(\\"hello, world\\")\\n",
+#                     "linenos": false, "language": "python",
+#                     "style": "friendly"}'
 #         stream = io.BytesIO(content)
 #         data = JSONParser().parse(stream)
 
-#         response = self.client.post('/snippets/list/', data=data, follow=True)
+#         response = self.client.post('/snippets/list/',
+#                                     data=data,
+#                                     follow=True)
 #         self.assertEqual(response.status_code, 201)
 
 #         json_content = json.loads(response.content)
