@@ -13,7 +13,14 @@ class SnippetGetDetailTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_view_creates_snippet(self):
-        response = self.client.post('/snippets/', {'code': '123'},
+        expected_code = 'print("Hello World!")'
+        response = self.client.post('/snippets/', {'code': f'{expected_code}'},
                                     format='json')
 
+        response_pk = response.data['id']
+        snippet = Snippet.objects.get(pk=response_pk)
+
         self.assertEqual(response.status_code, 201)
+        self.assertIsNotNone(snippet)
+        self.assertEqual(response.data['code'], expected_code)
+        self.assertEqual(snippet.code, expected_code)
