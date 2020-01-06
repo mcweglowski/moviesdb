@@ -24,3 +24,6 @@ class SnippetGetDetailTest(TestCase):
         self.assertIsNotNone(snippet)
         self.assertEqual(response.data['code'], expected_code)
         self.assertEqual(snippet.code, expected_code)
+
+    # def test_view_delete_snippet(self):
+    #     pass
