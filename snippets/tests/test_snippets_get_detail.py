@@ -25,5 +25,12 @@ class SnippetGetDetailTest(TestCase):
         self.assertEqual(response.data['code'], expected_code)
         self.assertEqual(snippet.code, expected_code)
 
-    # def test_view_delete_snippet(self):
-    #     pass
+    def test_view_delete_snippet(self):
+        snippet = Snippet()
+        snippet.code = 'foo="bar"\n'
+        snippet.save()
+
+        # factory = APIRequestFactory()
+        response = self.client.delete('/snippets/', {'pk': snippet.pk},
+                                      format='json')
+        self.assertEqual(response.status_code, 204)
