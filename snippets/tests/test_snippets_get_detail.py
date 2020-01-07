@@ -1,11 +1,11 @@
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory
 from snippets.models import Snippet
-from snippets.views import snippet_detail
+from snippets.views import snippet_detail as tested_view
 
 
 class SnippetGetDetailTest(TestCase):
-    def test_view_returns_snippet_details(self):
+    def test_view_get_snippet(self):
         snippet = Snippet()
         snippet.code = "some code"
         snippet.save()
@@ -14,7 +14,7 @@ class SnippetGetDetailTest(TestCase):
                                    follow=True)
         self.assertEqual(response.status_code, 200)
 
-    def test_view_creates_snippet(self):
+    def test_view_put_snippet(self):
         expected_code = 'print("Hello World!")'
         response = self.client.post('/snippets/', {'code': f'{expected_code}'},
                                     format='json')
@@ -37,7 +37,7 @@ class SnippetGetDetailTest(TestCase):
 
         factory = APIRequestFactory()
         request = factory.delete(f'/snippets/', format='json')
-        response = snippet_detail(request, snippet.pk)
+        response = tested_view(request, snippet.pk)
 
         is_snippet = Snippet.objects.filter(pk=snippet.pk).exists()
 
