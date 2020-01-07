@@ -1,5 +1,7 @@
 from django.test import TestCase
+from rest_framework.test import APIRequestFactory
 from snippets.models import Snippet
+from snippets.views import snippet_detail
 
 
 class SnippetGetDetailTest(TestCase):
@@ -25,12 +27,13 @@ class SnippetGetDetailTest(TestCase):
         self.assertEqual(response.data['code'], expected_code)
         self.assertEqual(snippet.code, expected_code)
 
-    def test_view_delete_snippet(self):
+    def test_view_delete_snippet_2(self):
         snippet = Snippet()
         snippet.code = 'foo="bar"\n'
         snippet.save()
 
-        # factory = APIRequestFactory()
-        response = self.client.delete('/snippets/', {'pk': snippet.pk},
-                                      format='json')
+        factory = APIRequestFactory()
+        request = factory.delete(f'/snippets/', format='json')
+        response = snippet_detail(request, snippet.pk)
+
         self.assertEqual(response.status_code, 204)
