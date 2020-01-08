@@ -1,7 +1,7 @@
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory
 from snippets.models import Snippet
-from snippets.views import snippet_detail as tested_view
+# from snippets.views import snippet_detail as tested_view
 
 
 class SnippetGetDetailTest(TestCase):
@@ -28,18 +28,19 @@ class SnippetGetDetailTest(TestCase):
         self.assertEqual(snippet.code, expected_code)
 
     def test_view_delete_snippet(self):
-        snippet = Snippet()
-        snippet.code = 'foo="bar"\n'
-        snippet.save()
+        # snippet = Snippet()
+        # snippet.code = 'foo="bar"\n'
+        # snippet.save()
 
-        is_snippet = Snippet.objects.filter(pk=snippet.pk).exists()
-        self.assertTrue(is_snippet)
+        # is_snippet = Snippet.objects.filter(pk=snippet.pk).exists()
+        # self.assertTrue(is_snippet)
 
-        factory = APIRequestFactory()
-        request = factory.delete(f'/snippets/', format='json')
-        response = tested_view(request, snippet.pk)
+        # factory = APIRequestFactory()
+        # request = factory.delete(f'/snippets/', format='json')
+        # response = tested_view(request, snippet.pk)
 
-        is_snippet = Snippet.objects.filter(pk=snippet.pk).exists()
+        # is_snippet = Snippet.objects.filter(pk=snippet.pk).exists()
 
-        self.assertEqual(response.status_code, 204)
-        self.assertFalse(is_snippet)
+        # self.assertEqual(response.status_code, 204)
+        # self.assertFalse(is_snippet)
+        self.assertFalse(True)
