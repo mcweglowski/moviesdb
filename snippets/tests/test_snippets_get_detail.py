@@ -15,15 +15,22 @@ class SnippetGetDetailTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_view_put_snippet(self):
-        expected_code = 'print("Hello World!")'
+        snippet = Snippet()
+        snippet.code = 'print("Hello World!")'
+        snippet.save()
+
+        expected_code = 'abc'
 
         factory = APIRequestFactory()
-        request = factory.put('/snippets/1', {'code': expected_code})
+        request = factory.put('/snippets/', {'code': expected_code})
         tested_view = SnippetDetail.as_view()
 
-        response = tested_view(request)
+        response = tested_view(request, pk=snippet.pk)
 
-        self.assertEqual(response.status_code, 201)
+        snippet = Snippet.objects.get(pk=snippet.pk)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(snippet.code, expected_code)
 
     def test_view_delete_snippet(self):
         snippet = Snippet()
