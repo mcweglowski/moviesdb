@@ -10,6 +10,8 @@ class SnippetGetDetailTest(TestCase):
         self.snippet.code = 'print("Hello World!")'
         self.snippet.save()
 
+        self.factory = APIRequestFactory()
+
     def test_view_get_snippet(self):
         response = self.client.get(f'/snippets/', {'pk': self.snippet.pk},
                                    follow=True)
@@ -18,8 +20,7 @@ class SnippetGetDetailTest(TestCase):
     def test_view_put_snippet(self):
         expected_code = 'foo="bar"'
 
-        factory = APIRequestFactory()
-        request = factory.put('/snippets/', {'code': expected_code})
+        request = self.factory.put('/snippets/', {'code': expected_code})
         tested_view = SnippetDetail.as_view()
 
         response = tested_view(request, pk=self.snippet.pk)
@@ -32,8 +33,7 @@ class SnippetGetDetailTest(TestCase):
         is_snippet = Snippet.objects.filter(pk=self.snippet.pk).exists()
         self.assertTrue(is_snippet)
 
-        factory = APIRequestFactory()
-        request = factory.delete(f'/snippets/', format='json')
+        request = self.factory.delete(f'/snippets/', format='json')
 
         tested_view = SnippetDetail.as_view()
         response = tested_view(request, pk=self.snippet.pk)
