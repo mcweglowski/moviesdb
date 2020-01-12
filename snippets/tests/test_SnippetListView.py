@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 import json
 from snippets.models import Snippet
@@ -6,10 +7,17 @@ from snippets.models import Snippet
 class SnippetListViewTest(TestCase):
     number_of_snippets = 4
 
-    @classmethod
-    def setUpTestData(cls):
-        for snippet_id in range(cls.number_of_snippets):
-            Snippet.objects.create(code='Snippet: #{snippet_id}')
+    def setUp(self):
+        user = User()
+        user.password = '123'
+        user.email = 'email@email.com'
+        user.save()
+
+        for snippet_id in range(self.number_of_snippets):
+            snippet = Snippet()
+            snippet.code = 'Snippet: #{snippet_id}'
+            snippet.owner_id = user.pk
+            snippet.save()
 
     def test_view_url_exists_at_desired_location(self):
         response = self.client.get('/snippets', follow=True)

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory
 from snippets.models import Snippet
@@ -6,8 +7,14 @@ from snippets.views import SnippetDetail
 
 class SnippetGetDetailTest(TestCase):
     def setUp(self):
+        user = User()
+        user.password = '123'
+        user.email = 'email@email.com'
+        user.save()
+
         self.snippet = Snippet()
         self.snippet.code = 'print("Hello World!")'
+        self.snippet.owner_id = user.pk
         self.snippet.save()
 
         self.factory = APIRequestFactory()
