@@ -37,4 +37,4 @@ class Snippet(models.Model):
         super(Snippet, self).save(*args, **kwargs)
 
     class Meta:
-        ordering = ['created']
+        ordering = ['created', 'owner']
