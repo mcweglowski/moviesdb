@@ -22,7 +22,7 @@ class SnippetDetailTest(TestCase):
         self.tested_view = SnippetDetail.as_view()
 
     def test_get(self):
-        response = self.client.get(f'/snippets/', {'pk': self.snippet.pk},
+        response = self.client.get(f'/snippets/snippets/', {'pk': self.snippet.pk},
                                    follow=True)
         self.assertEqual(response.status_code, 200)
 
