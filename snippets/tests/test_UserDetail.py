@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory
-from snippets.views import UserDetail
+from snippets.views import UserViewSet
 
 
 class UserDetailTest(TestCase):
@@ -12,7 +12,7 @@ class UserDetailTest(TestCase):
         self.user.save()
 
         self.factory = APIRequestFactory()
-        self.tested_view = UserDetail.as_view()
+        self.tested_view = UserViewSet.as_view({'get': 'retrieve'})
 
     def test_get(self):
         request = self.factory.get('/users/', follow=True)

@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory, force_authenticate
 from snippets.models import Snippet
-from snippets.views import SnippetDetail
+from snippets.views import SnippetViewSet
 
 
 class SnippetDetailTest(TestCase):
@@ -19,10 +19,13 @@ class SnippetDetailTest(TestCase):
         self.snippet.save()
 
         self.factory = APIRequestFactory()
-        self.tested_view = SnippetDetail.as_view()
+        self.tested_view = SnippetViewSet.as_view({'put': 'update',
+                                                   'delete': 'destroy',
+                                                   'get': 'retrieve'})
 
     def test_get(self):
-        response = self.client.get(f'/snippets/snippets/', {'pk': self.snippet.pk},
+        response = self.client.get(f'/snippets/snippets/',
+                                   {'pk': self.snippet.pk},
                                    follow=True)
         self.assertEqual(response.status_code, 200)
 
